@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Priya Sharma",
+    "specialization": "Cardiologist",
+    "image": "https://randomuser.me/api/portraits/women/44.jpg",
+    "available": true
+  },
+  {
+    "id": 2,
+    "name": "Dr. Rajesh Gupta",
+    "specialization": "Dermatologist",
+    "image": "https://randomuser.me/api/portraits/men/46.jpg",
+    "available": false
+  },
+  {
+    "id": 3,
+    "name": "Dr. Ananya Verma",
+    "specialization": "Pediatrician",
+    "image": "https://randomuser.me/api/portraits/women/47.jpg",
+    "available": true
+  }
+]
