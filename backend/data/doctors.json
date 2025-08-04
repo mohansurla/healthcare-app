@@ -4,20 +4,79 @@
     "name": "Dr. Priya Sharma",
     "specialization": "Cardiologist",
     "image": "https://randomuser.me/api/portraits/women/44.jpg",
-    "available": true
+    "available": true,
+    "experience": "15 years",
+    "location": "Delhi Heart Institute",
+    "timeSlots": ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"]
   },
   {
     "id": 2,
     "name": "Dr. Rajesh Gupta",
     "specialization": "Dermatologist",
     "image": "https://randomuser.me/api/portraits/men/46.jpg",
-    "available": false
+    "available": false,
+    "experience": "12 years",
+    "location": "Skin Care Clinic",
+    "timeSlots": ["10:00", "11:00", "12:00", "15:00", "16:00", "17:00"]
   },
   {
     "id": 3,
     "name": "Dr. Ananya Verma",
     "specialization": "Pediatrician",
     "image": "https://randomuser.me/api/portraits/women/47.jpg",
-    "available": true
+    "available": true,
+    "experience": "8 years",
+    "location": "Children's Hospital",
+    "timeSlots": ["09:30", "10:30", "11:30", "14:30", "15:30", "16:30"]
+  },
+  {
+    "id": 4,
+    "name": "Dr. Vikram Singh",
+    "specialization": "Orthopedic Surgeon",
+    "image": "https://randomuser.me/api/portraits/men/32.jpg",
+    "available": true,
+    "experience": "18 years",
+    "location": "Bone & Joint Hospital",
+    "timeSlots": ["08:00", "09:00", "10:00", "14:00", "15:00", "16:00"]
+  },
+  {
+    "id": 5,
+    "name": "Dr. Meera Patel",
+    "specialization": "Gynecologist",
+    "image": "https://randomuser.me/api/portraits/women/28.jpg",
+    "available": true,
+    "experience": "10 years",
+    "location": "Women's Health Center",
+    "timeSlots": ["09:00", "10:00", "11:00", "15:00", "16:00", "17:00"]
+  },
+  {
+    "id": 6,
+    "name": "Dr. Arjun Kumar",
+    "specialization": "Neurologist",
+    "image": "https://randomuser.me/api/portraits/men/52.jpg",
+    "available": false,
+    "experience": "22 years",
+    "location": "Neuro Sciences Institute",
+    "timeSlots": ["08:30", "09:30", "10:30", "14:30", "15:30", "16:30"]
+  },
+  {
+    "id": 7,
+    "name": "Dr. Kavya Reddy",
+    "specialization": "Ophthalmologist",
+    "image": "https://randomuser.me/api/portraits/women/35.jpg",
+    "available": true,
+    "experience": "14 years",
+    "location": "Eye Care Center",
+    "timeSlots": ["09:00", "10:00", "11:00", "13:00", "14:00", "15:00"]
+  },
+  {
+    "id": 8,
+    "name": "Dr. Rohit Malhotra",
+    "specialization": "ENT Specialist",
+    "image": "https://randomuser.me/api/portraits/men/41.jpg",
+    "available": true,
+    "experience": "16 years",
+    "location": "ENT Specialty Clinic",
+    "timeSlots": ["08:00", "09:00", "10:00", "15:00", "16:00", "17:00"]
   }
 ]

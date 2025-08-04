@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { CheckCircle, X } from "lucide-react"; // install lucide-react for icons
+import { CheckCircle, X, Clock } from "lucide-react";
 
-export default function BookingForm({ doctorId, onClose }) {
+export default function BookingForm({ doctor, onClose }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,7 +50,7 @@ export default function BookingForm({ doctorId, onClose }) {
     fetch("http://localhost:5000/appointments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...formData, doctorId }),
+      body: JSON.stringify({ ...formData, doctorId: doctor.id }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -64,10 +64,16 @@ export default function BookingForm({ doctorId, onClose }) {
       .catch(() => setMessage("❌ Something went wrong"));
   };
 
+  // Get minimum date (today)
+  const getMinDate = () => {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  };
+
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
       {/* Modal Container */}
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative animate-fadeInScale">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-6 relative animate-fadeInScale max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -76,57 +82,103 @@ export default function BookingForm({ doctorId, onClose }) {
           <X size={20} />
         </button>
 
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Book Appointment</h2>
+        {/* Header */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">Book Appointment</h2>
+          <p className="text-gray-600 mt-1">with {doctor.name}</p>
+          <p className="text-sm text-blue-600">{doctor.specialization}</p>
+        </div>
 
         {message && (
-          <p className="mb-3 text-sm text-red-600">{message}</p>
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-sm text-red-600">{message}</p>
+          </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Your Name"
-            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 outline-none"
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Your Email"
-            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 outline-none"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <input
-            type="date"
-            name="date"
-            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 outline-none"
-            value={formData.date}
-            onChange={handleChange}
-          />
-          <input
-            type="time"
-            name="time"
-            className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-300 outline-none"
-            value={formData.time}
-            onChange={handleChange}
-          />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Name Input */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your full name"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 outline-none transition"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
 
-          <div className="flex justify-end gap-3 mt-6">
+          {/* Email Input */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Email Address
+            </label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email address"
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 outline-none transition"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Date Input */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Appointment Date
+            </label>
+            <input
+              type="date"
+              name="date"
+              min={getMinDate()}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 outline-none transition"
+              value={formData.date}
+              onChange={handleChange}
+            />
+          </div>
+
+          {/* Time Slots */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              <Clock className="inline mr-2" size={16} />
+              Available Time Slots
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {doctor.timeSlots.map((slot) => (
+                <button
+                  key={slot}
+                  type="button"
+                  className={`p-3 border rounded-lg text-sm font-medium transition ${
+                    formData.time === slot
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-white text-gray-700 border-gray-300 hover:border-blue-300 hover:bg-blue-50"
+                  }`}
+                  onClick={() => setFormData({ ...formData, time: slot })}
+                >
+                  {slot}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-3 mt-8 pt-4 border-t">
             <button
               type="button"
-              className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg transition"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg transition font-medium"
               onClick={onClose}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow-md transition"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition font-medium"
             >
-              Confirm
+              Book Appointment
             </button>
           </div>
         </form>
@@ -134,8 +186,12 @@ export default function BookingForm({ doctorId, onClose }) {
 
       {/* Success Popup */}
       {showSuccess && (
-        <div className="fixed top-5 right-5 bg-green-500 text-white px-5 py-3 rounded-lg shadow-lg flex items-center gap-2 animate-slideIn">
-          <CheckCircle size={20} /> Appointment booked successfully!
+        <div className="fixed top-5 right-5 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slideIn z-60">
+          <CheckCircle size={20} />
+          <div>
+            <p className="font-medium">Appointment Confirmed!</p>
+            <p className="text-sm opacity-90">You'll receive a confirmation email shortly.</p>
+          </div>
         </div>
       )}
 
